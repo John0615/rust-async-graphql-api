@@ -11,7 +11,6 @@ async fn main() -> std::io::Result<()> {
     let schema = Schema::new(Query, EmptyMutation, EmptySubscription);
 
     println!("Playground: http://localhost:8000");
-
     HttpServer::new(move || {
         App::new()
             .wrap(Cors::default())
