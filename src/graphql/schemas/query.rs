@@ -45,4 +45,24 @@ impl Query {
             },
         ]
     }
+
+    async fn user(&self) -> Vec<Book> {
+        vec![
+            Book {
+                id: 1,
+                title: "踢啊四四四口大口大口大口".to_string(),
+                author: "John".to_string(),
+            },
+            Book {
+                id: 2,
+                title: "上课送我我哦饿哦饿".to_string(),
+                author: "Jobin".to_string(),
+            },
+            Book {
+                id: 3,
+                title: "i为i为i开".to_string(),
+                author: "Edward".to_string(),
+            },
+        ]
+    }
 }
