@@ -1,6 +1,6 @@
 use actix_cors::Cors;
 use actix_web::{ guard, web, App, HttpServer, Result, HttpResponse};
-use graphql::{ playground_source, DeferSchema, GQLRequest, GQLResponseStream, Query, EmptyMutation, EmptySubscription, Schema};
+use graphql::{ playground_source, DeferSchema, GQLRequest, GQLResponseStream, Query, Mutation, EmptySubscription, Schema};
 
 mod graphql;
 
@@ -17,7 +17,7 @@ pub async fn index_playground() -> Result<HttpResponse> {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    let schema = Schema::new(Query, EmptyMutation, EmptySubscription);
+    let schema = Schema::new(Query, Mutation, EmptySubscription);
 
     println!("Playground: http://localhost:8000");
     HttpServer::new(move || {
