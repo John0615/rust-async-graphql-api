@@ -1,6 +1,4 @@
-
-use async_graphql::{Object};
-
+use async_graphql::Object;
 
 struct Book {
     id: i32,

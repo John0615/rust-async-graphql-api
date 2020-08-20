@@ -1,6 +1,9 @@
 use actix_cors::Cors;
-use actix_web::{ guard, web, App, HttpServer, Result, HttpResponse};
-use graphql::{ playground_source, DeferSchema, GQLRequest, GQLResponseStream, Query, Mutation, EmptySubscription, Schema};
+use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use graphql::{
+    playground_source, DeferSchema, EmptySubscription, GQLRequest, GQLResponseStream, Mutation,
+    Query, Schema,
+};
 
 mod graphql;
 
@@ -13,7 +16,6 @@ pub async fn index_playground() -> Result<HttpResponse> {
         .content_type("text/html; charset=utf-8")
         .body(playground_source("/", Some("/"))))
 }
-
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
