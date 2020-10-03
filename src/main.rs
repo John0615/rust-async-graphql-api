@@ -12,6 +12,7 @@ mod config;
 mod graphql;
 mod controllers;
 mod models;
+mod service;
 
 pub async fn index(schema: web::Data<DeferSchema>, req: GQLRequest) -> GQLResponseStream {
     req.into_inner().execute_stream(&schema).await.into()
