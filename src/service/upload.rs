@@ -8,18 +8,21 @@ use actix_multipart::Multipart;
 use futures::StreamExt;
 use std::io::Write;
 
+fn upload_result(code: u32, message: &str, path: &str) -> HttpResponse { 
+    let result = UploadResult{code: code as usize, message, path};
+    HttpResponse::Ok().json(result)
+}
+
+fn upload_error(code: u32, message: &str) -> HttpResponse {  //上传成功返回
+    upload_result(code, message, "")
+}
+
+fn upload_success(path: &str) -> HttpResponse {  //上传失败返回
+    upload_result(0, "", path)
+}
+
 // 上传文件
-pub async fn upload_files(file_types: &[&str],  mut payload: Multipart) -> HttpResponse { 
-    let upload_result = |code: u32, message: &str, path: &str| { 
-        let result = UploadResult{code: code as usize, message, path};
-        HttpResponse::Ok().json(result)
-    };
-    let upload_error = |code: u32, message: &str| {  //上传成功返回
-        upload_result(code, message, "")
-    };
-    let upload_success = |path: &str| {  //上传失败返回
-        upload_result(0, "", path)
-    };
+pub async fn upload_files(file_types: &[&str],  mut payload: Multipart) -> HttpResponse {
     while let Some(item) = payload.next().await { 
         let mut field = if let Ok(v) = item { v } else { return upload_error(401, "获取上传文件失败"); };
 
